@@ -1,1 +1,1 @@
-export * from "@/utils/functions/isValidField";
+export * as isValid from "@/utils/functions/isValidField";

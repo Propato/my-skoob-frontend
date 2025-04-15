@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow w-50 p-5 mx-auto">
+    <div class="card shadow container p-5 col-10 col-lg-6 col-xl-6">
         <RouterLink class="text-center mb-4" to="/">
             <img src="@/assets/skoob-logo.webp" alt="Skoob Logo" height="60" />
         </RouterLink>
@@ -73,13 +73,13 @@
 <script setup lang="ts">
     import { ref } from "vue";
     import { useRouter } from "vue-router";
-    import { useUserStore } from "../stores/user";
+    import { useUserStore } from "../../stores/user";
 
     import { MessageComponent, LoadingSpinnerComponent } from "@/components";
 
-    import { userCrud } from "@/api";
+    import { usersApi } from "@/api";
     import type { IAlertMessage } from "@/utils/interfaces";
-    import { isValidEmail, isValidPassword, isValidText } from "@/utils/functions/isValidField";
+    import { isValid } from "@/utils/functions";
 
     const router = useRouter();
     const userStore = useUserStore();
@@ -92,20 +92,15 @@
     const loading = ref(false);
     const viewMessages = ref<IAlertMessage[]>([]);
 
-    const isValidFields = (
-        email: string,
-        name: string,
-        password: string,
-        repeatPassword: string,
-    ) => {
-        if (!isValidEmail(email)) {
+    const isValidFields = () => {
+        if (!isValid.Email(email.value)) {
             viewMessages.value.push({ text: "Invalid Email", type: "warning" });
         }
-        if (!isValidText(name, 0, 60)) {
+        if (!isValid.Text(name.value, 0, 60)) {
             viewMessages.value.push({ text: "Invalid Profile Name", type: "warning" });
         }
-        if (password === repeatPassword) {
-            if (!isValidPassword(password))
+        if (password.value === repeatPassword.value) {
+            if (!isValid.Password(password.value))
                 viewMessages.value.push({ text: "Invalid Password", type: "warning" });
         } else {
             viewMessages.value.push({ text: "Passwords don't match", type: "warning" });
@@ -120,8 +115,8 @@
         viewMessages.value = [];
         email.value = email.value.trim();
 
-        if (isValidFields(email.value, name.value, password.value, repeatPassword.value)) {
-            const { token, user, errors } = await userCrud.registerUser({
+        if (isValidFields()) {
+            const { token, user, errors } = await usersApi.registerUser({
                 email: email.value,
                 name: name.value,
                 password: password.value,
@@ -131,9 +126,7 @@
                 userStore.setUserState(token, user);
                 router.push("/profile");
             }
-            viewMessages.value = Array.isArray(errors)
-                ? errors
-                : [{ text: "System Error", type: "danger" }];
+            viewMessages.value = errors.length ? errors : [{ text: "System Error", type: "danger" }];
         }
         email.value = "";
         name.value = "";

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { LoginView, RegisterView, HomeView, ProfileView, BooksView } from "@/views";
+import { HomeView, UsersViews, BooksViews } from "@/views";
 import { useUserStore } from "@/stores/user";
 import { AuthLayout, DefaultLayout } from "@/layouts";
 
@@ -11,12 +11,15 @@ const router = createRouter({
             component: DefaultLayout,
             children: [
                 { path: "", name: "Home", component: HomeView },
-                { path: "books", name: "Books", component: BooksView },
+                { path: "profile", name: "Profile", component: UsersViews.ProfileView, meta: { requiresAuth: true } },
+                { path: "books", name: "Books", component: BooksViews.PanelView },
+                { path: "books/register", name: "Register Book", component: BooksViews.RegisterView },
                 {
-                    path: "profile",
-                    name: "Profile",
-                    component: ProfileView,
-                    meta: { requiresAuth: true },
+                    path: "books/edit/:id",
+                    name: "Edit Book",
+                    component: BooksViews.RegisterView,
+                    props: true,
+                    meta: { requiresAdmin: true },
                 },
             ],
         },
@@ -24,8 +27,8 @@ const router = createRouter({
             path: "/",
             component: AuthLayout,
             children: [
-                { path: "login", name: "Login", component: LoginView },
-                { path: "register", name: "Register", component: RegisterView },
+                { path: "login", name: "Login", component: UsersViews.AuthView },
+                { path: "register", name: "Register", component: UsersViews.RegisterView },
             ],
         },
     ],
@@ -34,7 +37,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const userStore = useUserStore();
 
-    if (to.meta.requiresAuth && !userStore.isAuthenticated) {
+    if ((to.meta.requiresAuth && !userStore.isAuthenticated) || (to.meta.requiresAdmin && !userStore.isAdmin)) {
         next("/login");
     } else {
         next();

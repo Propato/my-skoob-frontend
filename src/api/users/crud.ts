@@ -1,12 +1,8 @@
 import { axios } from "@/api";
-import type { IAlertMessage, IGender, IUser } from "@/utils/interfaces";
+import type { IAlertMessage, IUser } from "@/utils/interfaces";
 import { parseBackendErrors } from "../utils/parseError";
 
-export async function registerUser(payload: {
-    email: string;
-    name: string;
-    password: string;
-}): Promise<{
+export async function registerUser(payload: { email: string; name: string; password: string }): Promise<{
     token: string | null;
     user: IUser | null;
     errors: IAlertMessage[];
@@ -21,12 +17,7 @@ export async function registerUser(payload: {
     }
 }
 
-export async function updateUser(payload: {
-    email: string;
-    name: string;
-    birthday: Date | null;
-    gender: IGender;
-}): Promise<{
+export async function updateUser(payload: Omit<IUser, "id" | "profile_picture" | "is_staff">): Promise<{
     user: IUser | null;
     errors: IAlertMessage[];
 }> {

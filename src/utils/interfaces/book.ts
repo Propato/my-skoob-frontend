@@ -1,8 +1,9 @@
 export interface IBook {
     id: number;
-    name: string;
+    title: string;
+    overview: string;
     author: string;
-    pags?: number;
-    release?: number;
+    pages?: number;
+    release_year?: number;
     validate?: boolean;
 }

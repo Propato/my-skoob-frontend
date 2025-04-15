@@ -1,10 +1,11 @@
 <template>
-    <div class="card shadow w-25 p-5 mx-auto">
-        <RouterLink class="text-center mb-4" to="/">
+    <!-- <div class="card shadow py-5 col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 mx-auto"> -->
+    <div class="card shadow container p-5 col-10 col-lg-6 col-xl-5">
+        <RouterLink class="text-center mb-2" to="/">
             <img src="@/assets/skoob-logo.webp" alt="Skoob Logo" height="60" />
         </RouterLink>
 
-        <h3 class="text-center m-4">Login</h3>
+        <h2 class="text-center m-4">Login</h2>
 
         <LoadingSpinnerComponent :loading="loading" />
 
@@ -35,15 +36,11 @@
                 />
             </div>
 
-            <div class="d-grid mb-3 mt-4">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
+            <div class="row mb-3 text-center justify-content-center">
+                <button type="submit" class="btn btn-primary p-2 m-3 col-md-8 col-10">Login</button>
 
-            <div class="text-center">
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Forgot password?</a>
-                <RouterLink to="/register" class="d-block mt-3">
-                    Don't have an account? Register
-                </RouterLink>
+                <RouterLink to="/register" class="d-block mt-3"> Don't have an account? Register </RouterLink>
             </div>
         </form>
     </div>
@@ -57,7 +54,7 @@
     import { MessageComponent, LoadingSpinnerComponent } from "@/components";
 
     import type { IAlertMessage } from "@/utils/interfaces";
-    import { isValidEmail, isValidPassword } from "@/utils/functions";
+    import { isValid } from "@/utils/functions";
 
     const router = useRouter();
     const userStore = useUserStore();
@@ -68,34 +65,29 @@
     const loading = ref(false);
     const viewMessages = ref<IAlertMessage[]>([]);
 
-    const isValidFields = (email: string, password: string) => {
-        if (!isValidEmail(email)) {
-            viewMessages.value.push({ text: "Invalid Email", type: "warning" });
-        }
-        if (!isValidPassword(password))
-            viewMessages.value.push({ text: "Invalid Password", type: "warning" });
+    const isValidFields = () => {
+        if (!isValid.Email(email.value)) viewMessages.value.push({ text: "Invalid Email", type: "warning" });
+        if (!isValid.Password(password.value)) viewMessages.value.push({ text: "Invalid Password", type: "warning" });
 
         return viewMessages.value.length === 0;
     };
 
-    async function handleLogin() {
+    const handleLogin = async () => {
         loading.value = true;
 
         viewMessages.value = [];
         email.value = email.value.trim();
 
-        if (isValidFields(email.value, password.value)) {
+        if (isValidFields()) {
             const result = await userStore.login(email.value, password.value);
 
             if (result === true && userStore.isAuthenticated) {
                 router.push("/");
             }
-            viewMessages.value = Array.isArray(result)
-                ? result
-                : [{ text: "System Error", type: "danger" }];
+            viewMessages.value = Array.isArray(result) ? result : [{ text: "System Error", type: "danger" }];
         }
         email.value = "";
         password.value = "";
         loading.value = false;
-    }
+    };
 </script>

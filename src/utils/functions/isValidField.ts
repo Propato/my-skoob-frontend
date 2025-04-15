@@ -1,8 +1,12 @@
-export function isValidText(text: string, bottomLimit = 0, upperLimit = 300): boolean {
+export function Text(text: string, bottomLimit = 0, upperLimit = 300): boolean {
     return bottomLimit < text.length && text.length <= upperLimit;
 }
 
-export function isValidEmail(email: string): boolean {
+export function Int(value: number, bottomLimit = 0, upperLimit = 10000) {
+    return Number.isInteger(value) && bottomLimit <= value && value <= upperLimit;
+}
+
+export function Email(email: string): boolean {
     const atIndex = email.indexOf("@");
     if (atIndex <= 0 || atIndex !== email.lastIndexOf("@")) return false;
 
@@ -12,12 +16,6 @@ export function isValidEmail(email: string): boolean {
     return emailRegex.test(email);
 }
 
-export function isValidPassword(password: string): boolean {
-    return (
-        password.length >= 8 &&
-        /[a-z]/.test(password) &&
-        /[A-Z]/.test(password) &&
-        /[0-9]/.test(password) &&
-        /[!@#$%^&*(),.?":{}|<>]/.test(password)
-    );
+export function Password(password: string): boolean {
+    return password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/.test(password);
 }
