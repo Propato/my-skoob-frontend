@@ -1,8 +1,6 @@
 <template>
     <header>
-        <nav
-            class="p-3 navbar navbar-expand-lg navbar-light bg-primary-subtle text-primary-emphasis"
-        >
+        <nav class="p-3 navbar navbar-expand-lg navbar-light bg-primary-subtle text-primary-emphasis">
             <div class="container">
                 <!-- Logo -->
                 <RouterLink class="navbar-brand" to="/">
@@ -36,17 +34,17 @@
                                 <h3>Books</h3>
                             </RouterLink>
                         </li>
+                        <li class="nav-item">
+                            <RouterLink class="nav-link" to="/reviews">
+                                <h3>Reviews</h3>
+                            </RouterLink>
+                        </li>
 
                         <!-- Itens extras do usuário (aparecem junto aos links em telas pequenas) -->
                         <template v-if="userStore.isAuthenticated">
                             <li class="nav-item">
                                 <RouterLink class="nav-link" to="/profile">
                                     <h3>Profile</h3>
-                                </RouterLink>
-                            </li>
-                            <li class="nav-item">
-                                <RouterLink class="nav-link" to="/config">
-                                    <h3>Config</h3>
                                 </RouterLink>
                             </li>
                             <li class="nav-item">
@@ -71,9 +69,7 @@
                     </ul>
 
                     <!-- Opções do usuário (somente para telas grandes) -->
-                    <ul
-                        class="navbar-nav ms-auto d-none d-lg-flex justify-content-center align-items-center"
-                    >
+                    <ul class="navbar-nav ms-auto d-none d-lg-flex justify-content-center align-items-center">
                         <li class="nav-item">
                             <RouterLink class="nav-link" to="/">
                                 <h3>Home</h3>
@@ -82,6 +78,11 @@
                         <li class="nav-item">
                             <RouterLink class="nav-link" to="/books">
                                 <h3>Books</h3>
+                            </RouterLink>
+                        </li>
+                        <li class="nav-item">
+                            <RouterLink class="nav-link" to="/reviews">
+                                <h3>Reviews</h3>
                             </RouterLink>
                         </li>
 
@@ -102,22 +103,12 @@
                                         width="32"
                                         height="32"
                                     />
-                                    <font-awesome-icon
-                                        v-else
-                                        :icon="['fas', 'circle-user']"
-                                        size="3x"
-                                        class="px-2"
-                                    />
+                                    <font-awesome-icon v-else :icon="['fas', 'circle-user']" size="3x" class="px-2" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
                                         <RouterLink class="dropdown-item" to="/profile">
                                             <h3>Profile</h3>
-                                        </RouterLink>
-                                    </li>
-                                    <li>
-                                        <RouterLink class="dropdown-item" to="/config">
-                                            <h3>Config</h3>
                                         </RouterLink>
                                     </li>
                                     <li>

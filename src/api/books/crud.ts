@@ -1,6 +1,6 @@
 import { axios } from "@/api";
 import type { IAlertMessage, IBook } from "@/utils/interfaces";
-import { parseBackendErrors } from "@/api//utils/parseError";
+import { parseBackendErrors } from "@/api/utils/parseError";
 
 export async function registerBook(payload: Omit<IBook, "id">): Promise<{
     book: IBook | null;
@@ -9,7 +9,6 @@ export async function registerBook(payload: Omit<IBook, "id">): Promise<{
     let errors: IAlertMessage[] = [];
     try {
         const response = await axios.post("/books/create/", payload);
-        console.log(response);
         return { book: response.data, errors: errors };
     } catch (err: unknown) {
         errors = parseBackendErrors(err);

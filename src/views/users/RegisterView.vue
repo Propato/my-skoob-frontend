@@ -45,6 +45,7 @@
                     placeholder="Password..."
                     required
                 />
+                <small>At least 8 digits; Upper and Lower Case; Special Caracteres and Number;</small>
             </div>
 
             <div class="mb-4">
@@ -59,12 +60,11 @@
                 />
             </div>
 
-            <div class="d-grid mb-3">
+            <div class="text-center d-grid">
                 <button type="submit" class="btn btn-success">Register</button>
-            </div>
-
-            <div class="text-center">
-                <RouterLink to="/login">Already have an account? Login</RouterLink>
+                <RouterLink to="/login" class="my-3">Already have an account? Login</RouterLink>
+                <br />
+                <RouterLink to="/">Back to Home</RouterLink>
             </div>
         </form>
     </div>
@@ -73,7 +73,6 @@
 <script setup lang="ts">
     import { ref } from "vue";
     import { useRouter } from "vue-router";
-    import { useUserStore } from "../../stores/user";
 
     import { MessageComponent, LoadingSpinnerComponent } from "@/components";
 
@@ -82,7 +81,6 @@
     import { isValid } from "@/utils/functions";
 
     const router = useRouter();
-    const userStore = useUserStore();
 
     const name = ref("");
     const email = ref("");
@@ -116,15 +114,14 @@
         email.value = email.value.trim();
 
         if (isValidFields()) {
-            const { token, user, errors } = await usersApi.registerUser({
+            const { user, errors } = await usersApi.registerUser({
                 email: email.value,
                 name: name.value,
                 password: password.value,
             });
 
-            if (token && user && errors.length === 0) {
-                userStore.setUserState(token, user);
-                router.push("/profile");
+            if (user && errors.length === 0) {
+                router.push("/login");
             }
             viewMessages.value = errors.length ? errors : [{ text: "System Error", type: "danger" }];
         }

@@ -16,7 +16,7 @@
                         <small>{{ book.release_year }}</small>
                     </div>
                     <div>
-                        <RouterLink class="btn" :to="`/review/${book.id}`">
+                        <RouterLink class="btn" :to="`/reviews/register/${book.id}`">
                             <font-awesome-icon :icon="['fas', 'plus']" class="fa-lg text-light" />
                         </RouterLink>
                         <RouterLink class="btn" v-if="userStore.isAdmin" :to="`/books/edit/${book.id}`">
@@ -27,9 +27,9 @@
                         </button>
                     </div>
                 </div>
-                <div class="list-group-item list-group-item-action" v-if="loading && book.id === idLoading">
+                <div class="list-group-item list-group-item-action" v-else>
                     <div class="col">
-                        <LoadingSpinnerComponent :loading="loading" />
+                        <LoadingSpinnerComponent :loading="true" />
                     </div>
                 </div>
             </div>
@@ -57,7 +57,6 @@
         books: IBook[];
     }>();
 
-    const loading = ref(false);
     const idLoading = ref(0);
     const viewMessages = ref<IAlertMessage[]>([]);
 
@@ -71,7 +70,6 @@
     );
 
     const deleteBook = async (book: IBook) => {
-        loading.value = true;
         idLoading.value = book.id;
         viewMessages.value = [];
 
@@ -81,7 +79,6 @@
         }
 
         viewMessages.value = errors;
-        loading.value = false;
         idLoading.value = 0;
     };
 </script>

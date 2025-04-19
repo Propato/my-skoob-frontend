@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { HomeView, UsersViews, BooksViews } from "@/views";
+import { HomeView, UsersViews, BooksViews, ReviewsViews } from "@/views";
 import { useUserStore } from "@/stores/user";
 import { AuthLayout, DefaultLayout } from "@/layouts";
 
@@ -13,13 +13,31 @@ const router = createRouter({
                 { path: "", name: "Home", component: HomeView },
                 { path: "profile", name: "Profile", component: UsersViews.ProfileView, meta: { requiresAuth: true } },
                 { path: "books", name: "Books", component: BooksViews.PanelView },
-                { path: "books/register", name: "Register Book", component: BooksViews.RegisterView },
+                {
+                    path: "books/register",
+                    name: "Register Book",
+                    component: BooksViews.RegisterView,
+                    meta: { requiresAuth: true },
+                },
                 {
                     path: "books/edit/:id",
                     name: "Edit Book",
                     component: BooksViews.RegisterView,
                     props: true,
                     meta: { requiresAdmin: true },
+                },
+                { path: "reviews", name: "Reviews", component: ReviewsViews.PanelView, meta: { requiresAuth: true } },
+                {
+                    path: "reviews/register/:bookId",
+                    name: "Register Review",
+                    component: ReviewsViews.RegisterView,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: "reviews/edit/:reviewId",
+                    name: "Edit Review",
+                    component: ReviewsViews.RegisterView,
+                    meta: { requiresAuth: true },
                 },
             ],
         },

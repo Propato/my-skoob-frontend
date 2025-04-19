@@ -40,7 +40,8 @@
                 <button type="submit" class="btn btn-primary p-2 m-3 col-md-8 col-10">Login</button>
 
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Forgot password?</a>
-                <RouterLink to="/register" class="d-block mt-3"> Don't have an account? Register </RouterLink>
+                <RouterLink to="/register" class="d-block my-3"> Don't have an account? Register </RouterLink>
+                <RouterLink to="/">Back to Home</RouterLink>
             </div>
         </form>
     </div>

@@ -18,7 +18,7 @@
 
         <form @submit.prevent="handleSave" novalidate>
             <div class="row mb-3">
-                <label for="name" class="form-label">Profile Name</label>
+                <label for="name" class="form-label">Profile Name *</label>
                 <input
                     id="name"
                     v-model="name"
@@ -30,7 +30,7 @@
             </div>
 
             <div class="row mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email *</label>
                 <input
                     id="email"
                     v-model="email"

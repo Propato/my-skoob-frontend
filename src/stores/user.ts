@@ -26,11 +26,6 @@ export const useUserStore = defineStore("user", {
             this.user = user;
         },
 
-        setUserState(token: string, user: IUser) {
-            this.token = token;
-            this.user = user;
-        },
-
         logout() {
             this.user = null;
             this.token = null;

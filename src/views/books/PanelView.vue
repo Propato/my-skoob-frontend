@@ -20,31 +20,12 @@
                 <button class="btn btn-primary" @click="handleSearch">Search</button>
                 <RouterLink to="books/register" class="btn btn-success">Add a Book</RouterLink>
             </div>
-
-            <div v-if="userStore.isAuthenticated" class="list-group">
-                <template v-for="list in listItems" :key="list.id">
-                    <div
-                        class="list-group-item list-group-item-action d-flex justify-content-between"
-                        @click="
-                            () => {
-                                list.filter = !list.filter;
-                            }
-                        "
-                    >
-                        <div>
-                            <span>{{ list.name }}</span>
-                            <font-awesome-icon v-if="list.filter" :icon="['fas', 'check']" class="text-success mx-3" />
-                        </div>
-                        <span>{{ list.num }}</span>
-                    </div>
-                </template>
-            </div>
         </aside>
 
         <section class="col-9 px-3">
             <LoadingSpinnerComponent :loading="loading" />
-
             <MessageComponent :messages="viewMessages" />
+
             <BooksComponent :books="books" />
         </section>
     </div>
@@ -52,15 +33,10 @@
 
 <script setup lang="ts">
     import { onMounted, ref } from "vue";
-    import { useUserStore } from "@/stores/user";
-
-    import { MessageComponent, LoadingSpinnerComponent, BooksComponent } from "@/components";
-
-    import type { IAlertMessage, IBook } from "@/utils/interfaces";
 
     import { booksApi } from "@/api";
-
-    const userStore = useUserStore();
+    import type { IAlertMessage, IBook } from "@/utils/interfaces";
+    import { MessageComponent, LoadingSpinnerComponent, BooksComponent } from "@/components";
 
     const loading = ref(false);
     const viewMessages = ref<IAlertMessage[]>([]);
@@ -69,23 +45,13 @@
 
     const books = ref<IBook[]>([]);
 
-    const listItems = ref([
-        { name: "Read", num: 0, filter: false },
-        { name: "Reading", num: 0, filter: true },
-        { name: "Drop", num: 0, filter: false },
-        { name: "List", num: 0, filter: true },
-    ]);
-
     const handleSearch = async () => {
         loading.value = true;
         viewMessages.value = [];
 
         const result = await booksApi.searchBooks(search.value.trim());
-
         books.value = result.books;
         viewMessages.value = result.errors;
-
-        console.log(books.value);
 
         loading.value = false;
     };

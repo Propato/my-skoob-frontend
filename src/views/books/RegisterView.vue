@@ -15,7 +15,7 @@
             <!-- Title -->
             <div class="row mb-4 justify-content-center">
                 <div class="col-lg-7">
-                    <label for="title" class="form-label">Title</label>
+                    <label for="title" class="form-label">Title *</label>
                     <input
                         id="title"
                         v-model="title"
@@ -29,7 +29,7 @@
 
             <div class="row mb-4 justify-content-center">
                 <div class="col-lg-6">
-                    <label for="author" class="form-label">Author</label>
+                    <label for="author" class="form-label">Author *</label>
                     <input
                         id="author"
                         v-model="author"
@@ -52,22 +52,16 @@
                     <input id="release_year" v-model="release_year" type="number" class="form-control" />
                 </div>
             </div>
-            <div class="row mb-4 justify-content-center ps-xl-3">
+            <div v-if="userStore.isAdmin" class="row mb-4 justify-content-center ps-xl-3">
                 <div class="col-lg-2 mt-3 ps-lg-5">
-                    <input
-                        id="validate"
-                        v-model="validate"
-                        type="checkbox"
-                        class="form-check-input ml-2"
-                        :disabled="!userStore.isAdmin"
-                    />
+                    <input id="validate" v-model="validate" type="checkbox" class="form-check-input ml-2" />
                     <label for="validate" class="form-check-label">Validate</label>
                 </div>
             </div>
 
             <div class="row mb-5 justify-content-center">
                 <div class="col-lg-8">
-                    <label for="overview" class="form-label">Overview</label>
+                    <label for="overview" class="form-label">Overview *</label>
                     <textarea
                         id="overview"
                         v-model="overview"
@@ -165,7 +159,7 @@
 
             if (book && errors.length === 0) {
                 viewMessages.value = [
-                    { text: `Book ${book.title} ${isEditMode ? "updated" : "added"}`, type: "success" },
+                    { text: `${book.title} was ${isEditMode ? "updated" : "added"}`, type: "success" },
                 ];
 
                 if (isEditMode) router.push("/books/");

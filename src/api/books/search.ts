@@ -1,7 +1,7 @@
 import { axios } from "@/api";
 
 import type { IAlertMessage, IBook } from "@/utils/interfaces";
-import { parseBackendErrors } from "../utils/parseError";
+import { parseBackendErrors } from "@/api/utils/parseError";
 
 export async function searchBooks(query: string): Promise<{
     books: IBook[];

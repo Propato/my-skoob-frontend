@@ -19,10 +19,12 @@ import {
     faEnvelope,
     faXmark,
     faMagnifyingGlass,
-    faCheck,
+    faCircleCheck,
     faPlus,
     faPencil,
     faCertificate,
+    faStar,
+    faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
 // import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { faLinkedin, faGithub, faGitlab } from "@fortawesome/free-brands-svg-icons";
@@ -36,10 +38,12 @@ library.add(
     faEnvelope,
     faXmark,
     faMagnifyingGlass,
-    faCheck,
+    faCircleCheck,
     faPlus,
     faPencil,
     faCertificate,
+    faStar,
+    faBookmark,
 );
 
 const app = createApp(App);

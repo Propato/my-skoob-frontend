@@ -3,3 +3,4 @@ export { login } from "@/api/authentication/auth";
 
 export * as usersApi from "@/api/users";
 export * as booksApi from "@/api/books";
+export * as reviewsApi from "@/api/reviews";

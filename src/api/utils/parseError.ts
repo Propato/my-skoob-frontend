@@ -6,10 +6,10 @@ export function parseBackendErrors(error: unknown): IAlertMessage[] {
 
     const responseData = (error as AxiosError)?.response?.data as Record<string, unknown>;
 
-    if (typeof responseData === "string") {
-        messages.push({ text: responseData, type: "danger" });
-        return messages;
-    }
+    // if (typeof responseData === "string") {
+    // messages.push({ text: responseData, type: "danger" });
+    // return messages;
+    // }
 
     if (typeof responseData === "object" && responseData !== null) {
         for (const key in responseData) {
@@ -28,7 +28,5 @@ export function parseBackendErrors(error: unknown): IAlertMessage[] {
         }
     }
 
-    return messages.length > 0
-        ? messages
-        : [{ text: (error as AxiosError)?.message || "System Error", type: "danger" }];
+    return messages.length > 0 ? messages : [{ text: "System Error", type: "danger" }];
 }
