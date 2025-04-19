@@ -9,12 +9,12 @@
                     frontend.
                 </p>
                 <p>
-                    The goal is to explore these technologies in a functional project that simulates a real-world
+                    The aim it's to explore these technologies in a functional project that simulates a real-world
                     application in a simplified way.
                 </p>
                 <p>
-                    Feel free to explore, get to know it better, and suggest improvements. My contact information is
-                    available in the site footer.
+                    Feel free to explore, get to know it better and suggest improvements. My contact information is
+                    available in the footer of the website.
                 </p>
             </div>
         </div>

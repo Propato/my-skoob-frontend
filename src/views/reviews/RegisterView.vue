@@ -92,9 +92,13 @@
     const title = ref("");
 
     const isValidFields = () => {
-        if (comment.value && !isValid.Text(comment.value, 0, 300))
+        if (!comment.value || !stars.value) {
+            viewMessages.value.push({ text: "Elements with * are required", type: "warning" });
+            return false;
+        }
+        if (comment.value && !isValid.Text(comment.value, 1, 300))
             viewMessages.value.push({ text: "Invalid Comment Size", type: "warning" });
-        if (stars.value && !isValid.Int(Number(stars.value), 0, 10)) {
+        if (stars.value && !isValid.Int(Number(stars.value), 1, 10)) {
             viewMessages.value.push({ text: "Invalid Stars Value", type: "warning" });
         }
         return viewMessages.value.length === 0;

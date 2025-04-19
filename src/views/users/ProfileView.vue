@@ -93,10 +93,14 @@
     const viewMessages = ref<IAlertMessage[]>([]);
 
     const isValidFields = () => {
+        if (!email.value || !name.value) {
+            viewMessages.value.push({ text: "Elements with * are required", type: "warning" });
+            return false;
+        }
         if (!isValid.Email(email.value)) {
             viewMessages.value.push({ text: "Invalid Email", type: "warning" });
         }
-        if (!isValid.Text(name.value, 0, 60)) {
+        if (!isValid.Text(name.value, 1, 60)) {
             viewMessages.value.push({ text: "Invalid Profile Name", type: "warning" });
         }
         return viewMessages.value.length === 0;

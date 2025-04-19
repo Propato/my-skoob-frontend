@@ -45,7 +45,7 @@
                     placeholder="Password..."
                     required
                 />
-                <small>At least 8 digits; Upper and Lower Case; Special Caracteres and Number;</small>
+                <small>At least 8 digits; Upper and Lower Case; Special Caracteres and Number.</small>
             </div>
 
             <div class="mb-4">

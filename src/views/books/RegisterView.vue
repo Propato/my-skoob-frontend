@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="row mb-5 justify-content-center">
+            <div class="row mb-5 justify-content-center text-center">
                 <div class="col-lg-8">
                     <label for="overview" class="form-label">Overview *</label>
                     <textarea
@@ -70,8 +70,8 @@
                         rows="3"
                     ></textarea>
                 </div>
+                <small class="pt-2">This book will be validated by an Admin soon.</small>
             </div>
-
             <div class="row justify-content-center mb-5">
                 <div class="col-md-6 col-lg-4 d-grid">
                     <button type="submit" class="btn btn-success">{{ isEditMode ? "Save" : "Add" }}</button>
@@ -113,11 +113,16 @@
     const validate = ref(false);
 
     const isValidFields = () => {
-        if (!isValid.Text(title.value, 0, 120))
+        if (!title.value || !overview.value || !author.value) {
+            viewMessages.value.push({ text: "Elements with * are required", type: "warning" });
+            return false;
+        }
+
+        if (!isValid.Text(title.value, 1, 120))
             viewMessages.value.push({ text: "Invalid Size Title", type: "warning" });
-        if (!isValid.Text(overview.value, 0, 300))
+        if (!isValid.Text(overview.value, 1, 300))
             viewMessages.value.push({ text: "Invalid Size Overview", type: "warning" });
-        if (!isValid.Text(author.value, 0, 80))
+        if (!isValid.Text(author.value, 1, 80))
             viewMessages.value.push({ text: "Invalid Size Author", type: "warning" });
         if (pages.value && !isValid.Int(pages.value))
             viewMessages.value.push({ text: "Invalid Pages Number", type: "warning" });
