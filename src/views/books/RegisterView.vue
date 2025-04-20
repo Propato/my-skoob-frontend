@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="row mb-5 justify-content-center text-center">
+            <div class="row mb-5 justify-content-center">
                 <div class="col-lg-8">
                     <label for="overview" class="form-label">Overview *</label>
                     <textarea
@@ -69,10 +69,11 @@
                         placeholder="Overview..."
                         rows="3"
                     ></textarea>
+                    <small class="pt-2">Max 300 caracteres.</small>
                 </div>
-                <small class="pt-2">This book will be validated by an Admin soon.</small>
             </div>
-            <div class="row justify-content-center mb-5">
+            <div class="row justify-content-center mb-5 text-center">
+                <small class="pb-3">This book will be validated by an Admin soon.</small>
                 <div class="col-md-6 col-lg-4 d-grid">
                     <button type="submit" class="btn btn-success">{{ isEditMode ? "Save" : "Add" }}</button>
                 </div>
@@ -167,14 +168,7 @@
                     { text: `${book.title} was ${isEditMode ? "updated" : "added"}`, type: "success" },
                 ];
 
-                if (isEditMode) router.push("/books/");
-
-                title.value = "";
-                overview.value = "";
-                author.value = "";
-                pages.value = undefined;
-                release_year.value = undefined;
-                validate.value = false;
+                router.push("/books/");
             } else {
                 viewMessages.value = errors.length ? errors : [{ text: "System Error", type: "danger" }];
             }

@@ -11,7 +11,11 @@
             </div>
         </div>
 
-        <BookCardComponent :bookId="bookId" />
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <BookCardComponent :bookId="bookId" />
+            </div>
+        </div>
 
         <form @submit.prevent="handleSubmit" novalidate>
             <div class="row mb-4 justify-content-center">
@@ -51,6 +55,7 @@
                         placeholder="My Comments..."
                         rows="3"
                     ></textarea>
+                    <small>Max 300 caracteres.</small>
                 </div>
             </div>
 
