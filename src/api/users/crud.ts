@@ -29,3 +29,16 @@ export async function updateUser(payload: Omit<IUser, "id" | "profile_picture" |
         return { user: null, errors: errors };
     }
 }
+
+export async function deleteUser(): Promise<{
+    errors: IAlertMessage[];
+}> {
+    let errors: IAlertMessage[] = [];
+    try {
+        await axios.delete("/users/details/");
+        return { errors: errors };
+    } catch (err: unknown) {
+        errors = parseBackendErrors(err);
+        return { errors: errors };
+    }
+}

@@ -65,7 +65,12 @@
                     <button type="submit" class="btn btn-success p-2 mx-2">Save</button>
                 </div>
                 <div class="col-md-5 d-grid">
-                    <button type="button" @click="reset" class="btn btn-danger p-2 mx-2">Reset</button>
+                    <button type="button" @click="reset" class="btn btn-warning p-2 mx-2">Reset</button>
+                </div>
+            </div>
+            <div class="row m-3 justify-content-center">
+                <div class="col-md-10 d-grid">
+                    <button type="button" @click="deleteUser" class="btn btn-danger p-2 mx-2">Delete</button>
                 </div>
             </div>
         </form>
@@ -74,15 +79,15 @@
 
 <script setup lang="ts">
     import { ref } from "vue";
-    import { useUserStore } from "@/stores/user";
-
-    import { MessageComponent, LoadingSpinnerComponent } from "@/components";
-
     import { usersApi } from "@/api";
-    import type { IAlertMessage, IGender } from "@/utils/interfaces";
     import { isValid } from "@/utils/functions";
+    import { useUserStore } from "@/stores/user";
+    import type { IAlertMessage, IGender } from "@/utils/interfaces";
+    import { MessageComponent, LoadingSpinnerComponent } from "@/components";
+    import { useRouter } from "vue-router";
 
     const userStore = useUserStore();
+    const router = useRouter();
 
     const name = ref(userStore.user?.name || "");
     const email = ref(userStore.user?.email || "");
@@ -135,5 +140,21 @@
         email.value = userStore.user?.email || "";
         birthday.value = userStore.user?.birthday || undefined;
         gender.value = userStore.user?.gender || "";
+    };
+
+    const deleteUser = async () => {
+        loading.value = true;
+        viewMessages.value = [];
+
+        const { errors } = await usersApi.deleteUser();
+
+        if (errors.length === 0) {
+            viewMessages.value = [{ text: "User deleted successfully", type: "success" }];
+            userStore.logout();
+            router.push("/");
+        } else {
+            viewMessages.value = errors.length !== 0 ? errors : [{ text: "System Error", type: "danger" }];
+        }
+        loading.value = false;
     };
 </script>
