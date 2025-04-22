@@ -16,6 +16,10 @@
                     Feel free to explore, get to know it better and suggest improvements. My contact information is
                     available in the footer of the website.
                 </p>
+                <p>
+                    The concepts of this project are based on the real
+                    <a href="https://www.skoob.com.br/">Skoob</a> website
+                </p>
             </div>
         </div>
     </div>
