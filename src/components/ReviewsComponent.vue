@@ -32,7 +32,7 @@
                             </h5>
                             <p class="mb-1" v-if="review.stars">
                                 <font-awesome-icon :icon="['fas', 'star']" class="text-warning" />
-                                {{ review.stars }}/100
+                                {{ review.stars }}/10
                             </p>
                             <small>{{ review.comment }}</small>
                         </div>

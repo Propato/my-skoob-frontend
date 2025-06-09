@@ -18,7 +18,7 @@
 
             <div class="d-grid gap-2 mb-4">
                 <button class="btn btn-primary" @click="handleSearch">Search</button>
-                <RouterLink to="books/register" class="btn btn-success">Add a Book</RouterLink>
+                <RouterLink to="/books/register" class="btn btn-success">Add a Book</RouterLink>
                 <small
                     >Books with <font-awesome-icon :icon="['fas', 'certificate']" class="fa-sm mx-2" /> were validated
                     by an admin.</small
